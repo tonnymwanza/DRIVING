@@ -60,6 +60,6 @@ def login(request):
             else:
                 return redirect('index')
         else:
-            messages.error(request, 'invalid credentials provided')
+            messages.error(request, 'invalid credentials')
             return redirect('login')
     return render(request, 'login.html')
