@@ -8,8 +8,12 @@ class AppointmentForm(forms.Form):
         ('highway', 'Highway driving lesson'),
         ('international', 'International driving ')
     )
-    name = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Your Name', 'class': ''}))
-    email = forms.EmailField()
-    course_type = forms.CharField(widget=forms.RadioSelect(choices=courses, attrs={''}))
-    cart_type = forms.CharField()
-    message = forms.CharField()
+    cars = (
+        ('sedan', 'Sedan'),
+        ('truck', 'Truck')
+    )
+    name = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Your Name', 'class': 'form-control border-0'}))
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'Your Email', 'class': 'form-control border-0'}))
+    course_type = forms.CharField(widget=forms.Select(attrs={'choices': 'courses', 'class': 'form-control border-0', 'placeholder': 'Click to choose Course Type'}, choices=courses))
+    car_type = forms.CharField(widget=forms.Select(attrs={'placeholder': 'Click to choose Car Type', 'class': 'form-control border-0'}, choices=cars))
+    message = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Message', 'class': 'form-control border', 'rows': '8'}))

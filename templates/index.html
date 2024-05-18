@@ -312,31 +312,36 @@
                             <div class="row g-3">
                                 <div class="col-sm-6">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control border-0" id="gname" placeholder="Gurdian Name">
+                                        <!-- <input type="text" class="form-control border-0" id="gname" placeholder="Gurdian Name"> -->
+                                        {{form.name}}
                                         <label for="gname">Your Name</label>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-floating">
-                                        <input type="email" class="form-control border-0" id="gmail" placeholder="Gurdian Email">
+                                        <!-- <input type="email" class="form-control border-0" id="gmail" placeholder="Gurdian Email"> -->
+                                        {{form.email}}
                                         <label for="gmail">Your Email</label>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control border-0" id="cname" placeholder="Child Name">
-                                        <label for="cname">Courses Type</label>
+                                        <!-- <input type="text" class="form-control border-0" id="cname" placeholder="Child Name"> -->
+                                        {{form.course_type}}
+                                        <label for="cname">Click to choose Course Type</label>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control border-0" id="cage" placeholder="Child Age">
-                                        <label for="cage">Car Type</label>
+                                        <!-- <input type="text" class="form-control border-0" id="cage" placeholder="Child Age"> -->
+                                        {{form.car_type}}
+                                        <label for="cage">Click to choose Car Type</label>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-floating">
-                                        <textarea class="form-control border-0" placeholder="Leave a message here" id="message" style="height: 100px"></textarea>
+                                        <!-- <textarea class="form-control border-0" placeholder="Leave a message here" id="message" style="height: 100px"></textarea> -->
+                                        {{form.message}}
                                         <label for="message">Message</label>
                                     </div>
                                 </div>

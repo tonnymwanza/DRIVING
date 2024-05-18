@@ -6,12 +6,17 @@ from django.contrib.auth import authenticate
 from django.contrib import auth
 from django.contrib import messages
 
+from . forms import AppointmentForm
 # Create your views here.
 
 class HomeView(View):
 
     def get(self, request):
-        return render(request, 'index.html')
+        form = AppointmentForm(request.GET)
+        context = {
+            'form': form
+        }
+        return render(request, 'index.html', context)
 
 class AboutView(View):
 
@@ -63,3 +68,6 @@ def login(request):
             messages.error(request, 'invalid credentials')
             return redirect('login')
     return render(request, 'login.html')
+
+def appointment(request):
+    return redirect('index')
