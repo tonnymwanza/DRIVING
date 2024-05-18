@@ -1,7 +1,9 @@
 from django import forms
 
 from . models import Contact
+from . models import Application
 from . models import Appointment
+from . models import Course
 # my forms
 
 class AppointmentForm(forms.Form):
@@ -26,3 +28,23 @@ class ContactForm(forms.Form):
     email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control border-0 bg-light'}))
     subject = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control border-0 bg-light'}))
     message = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control border-0 bg-light', 'height': '150px'}))
+
+class ApplicationForm(forms.ModelForm):
+    class Meta:
+        model = Application
+        fields = [
+            'course',
+            'time',
+            'age', 
+            'country'
+        ]
+        countries = (
+            ('kenya', 'Kenya'),
+            ('uganda', 'Uganda'),
+            ('tanzania', 'Tanzania'),
+            ('burundi', 'Burundi')
+        )
+        course = forms.ModelMultipleChoiceField(queryset=Course.objects.all(), widget=forms.RadioSelect)
+        time = forms.CharField()
+        age = forms.IntegerField()
+        country = forms.CharField(widget=forms.RadioSelect())

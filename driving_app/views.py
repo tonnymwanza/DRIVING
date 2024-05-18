@@ -8,7 +8,10 @@ from django.contrib import messages
 
 from . models import Contact
 from . forms import AppointmentForm
+from . models import Appointment
 from . forms import ContactForm
+from . models import Course
+from . forms import ApplicationForm
 # Create your views here.
 
 class HomeView(View):
@@ -28,7 +31,11 @@ class AboutView(View):
 class CourseView(View):
 
     def get(self, request):
-        return render(request, 'courses.html')
+        course_obj = Course.objects.all()
+        context = {
+            'course_obj': course_obj
+        }
+        return render(request, 'courses.html', context)
     
 class ContactView(View):
 
@@ -103,3 +110,16 @@ def appointment(request):
     else:
         messages.error(request, 'problem encountered while sending the details')
     return redirect('index')
+
+class ApplicationView(View):
+
+    def get(self, request, pk):
+        courses = Course.objects.get(id=pk)
+        form = ApplicationForm(request.GET)
+        context = {
+            'form': form
+        }
+        return render(request, 'application.html', context)
+    
+    def post(self, request):
+        return redirect('application')

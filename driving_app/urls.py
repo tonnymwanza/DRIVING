@@ -1,6 +1,9 @@
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 
 from . import views
+from . views import ApplicationView
 from . views import HomeView
 from . views import AboutView
 from . views import ContactView
@@ -15,4 +18,7 @@ urlpatterns = [
     path('register', views.register, name='register'),
     path('login', views.login, name='login'),
     path('appointment', views.appointment, name='appointment'),
+    path('application/<int:pk>/', ApplicationView.as_view(), name='application'),
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
