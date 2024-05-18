@@ -10,7 +10,8 @@ class AppointmentForm(forms.Form):
     )
     cars = (
         ('sedan', 'Sedan'),
-        ('truck', 'Truck')
+        ('truck', 'Truck'),
+        ('bus', 'Bus')
     )
     name = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Your Name', 'class': 'form-control border-0'}))
     email = forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'Your Email', 'class': 'form-control border-0'}))

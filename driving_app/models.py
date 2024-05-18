@@ -9,3 +9,6 @@ class Appointment(models.Model):
     course_type = models.CharField(max_length=50)
     car_type = models.CharField(max_length=50)
     message = models.TextField()
+
+
+    

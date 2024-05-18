@@ -7,6 +7,7 @@ from django.contrib import auth
 from django.contrib import messages
 
 from . forms import AppointmentForm
+from . models import Appointment
 # Create your views here.
 
 class HomeView(View):
@@ -70,4 +71,16 @@ def login(request):
     return render(request, 'login.html')
 
 def appointment(request):
+    form = AppointmentForm(request.POST or None)
+    if form.is_valid():
+        apoint_obj = Appointment.objects.create(
+            name = form.cleaned_data['name'],
+            email = form.cleaned_data['email'],
+            course_type = form.cleaned_data['course_type'],
+            car_type = form.cleaned_data['car_type'],
+            message = form.cleaned_data['message']
+        )
+        messages.info(request, 'thanks for submitting your details')
+    else:
+        messages.error(request, 'problem encountered while sending the details')
     return redirect('index')
