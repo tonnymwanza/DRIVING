@@ -6,7 +6,9 @@ from django.contrib.auth import authenticate
 from django.contrib import auth
 from django.contrib import messages
 
+from . models import Contact
 from . forms import AppointmentForm
+from . forms import ContactForm
 # Create your views here.
 
 class HomeView(View):
@@ -31,8 +33,26 @@ class CourseView(View):
 class ContactView(View):
 
     def get(self, request):
-        return render(request, 'contact.html')
+        form = ContactForm(request.GET)
+        context = {
+            'form': form
+        }
+        return render(request, 'contact.html', context)
     
+    def post(self, request):
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            contact_obj = Contact.objects.create(
+                name = form.cleaned_data['name'],
+                email =form.cleaned_data['email'],
+                subject = form.cleaned_data['subject'],
+                message = form.cleaned_data['message']
+            )
+            messages.info(request, 'thanks for sending the message. we will get back to you soon')
+        else:
+            messages.error(request, 'error sending info. try again')
+        return redirect('contact')
+
 def register(request):
     if request.method == 'POST':
         firstname = request.POST['firstname']

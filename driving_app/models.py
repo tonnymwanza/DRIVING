@@ -9,3 +9,9 @@ class Appointment(models.Model):
     course_type = models.CharField(max_length=50)
     car_type = models.CharField(max_length=50)
     message = models.TextField()
+
+class Contact(models.Model):
+    name = models.CharField(max_length=50)
+    email = models.EmailField()
+    subject = models.CharField(max_length=50)
+    message = models.TextField()
