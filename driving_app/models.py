@@ -34,8 +34,9 @@ class Course(models.Model):
     
 
 class Application(models.Model):
-    course = models.OneToOneField(Course, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, unique=False, blank=True)
     time = models.CharField(max_length=50)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     age = models.IntegerField()
     country = models.CharField(max_length=50)
+

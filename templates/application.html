@@ -5,9 +5,11 @@
     </head>
     <body>
         <div>
-            <div>
-                {{form.course}}
-            </div>
+            {% if form.errors %}
+            {{form.errors}}
+            {% endif %}
+        <form method="POST" action="">
+            {% csrf_token %}
             <div>
                 {{form.time}}
             </div>
@@ -17,6 +19,13 @@
             <div>
                 {{form.country}}
             </div>
+            {% for message in messages %}
+            <span style="color: green;">{{message}}</span>
+            {% endfor %}
+            <div>
+                <button type="submit">Apply</button>
+            </div>
+        </form>
         </div>
     </body>
 </html>

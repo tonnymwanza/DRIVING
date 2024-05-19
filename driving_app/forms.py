@@ -1,5 +1,6 @@
 from django import forms
 
+from . validators import age_validator
 from . models import Contact
 from . models import Application
 from . models import Appointment
@@ -29,22 +30,17 @@ class ContactForm(forms.Form):
     subject = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control border-0 bg-light'}))
     message = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control border-0 bg-light', 'height': '150px'}))
 
-class ApplicationForm(forms.ModelForm):
-    class Meta:
-        model = Application
-        fields = [
-            'course',
-            'time',
-            'age', 
-            'country'
-        ]
-        countries = (
-            ('kenya', 'Kenya'),
-            ('uganda', 'Uganda'),
-            ('tanzania', 'Tanzania'),
-            ('burundi', 'Burundi')
-        )
-        course = forms.ModelMultipleChoiceField(queryset=Course.objects.all(), widget=forms.RadioSelect)
-        time = forms.CharField()
-        age = forms.IntegerField()
-        country = forms.CharField(widget=forms.RadioSelect())
+class ApplicationForm(forms.Form):
+    time_choice = (
+        ('evening', 'Evening'),
+        ('morning', 'Morning')
+    )
+    country_choice = (
+        ('kenya', 'Kenya'),
+        ('uganda', 'Uganda'),
+        ('burundi', 'Burundi'),
+        ('tanzania', 'Tanzania')
+    )
+    time = forms.CharField(widget=forms.Select(attrs={'placeholder':'select morning or evening'}, choices=time_choice))
+    age = forms.IntegerField(widget=forms.NumberInput(attrs={'placeholder': 'enter your age'}), validators=[age_validator])
+    country = forms.CharField(widget=forms.RadioSelect(choices=country_choice))

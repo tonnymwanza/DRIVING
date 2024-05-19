@@ -11,6 +11,7 @@ from . forms import AppointmentForm
 from . models import Appointment
 from . forms import ContactForm
 from . models import Course
+from . models import Application
 from . forms import ApplicationForm
 # Create your views here.
 
@@ -121,5 +122,25 @@ class ApplicationView(View):
         }
         return render(request, 'application.html', context)
     
-    def post(self, request):
-        return redirect('application')
+    def post(self, request, pk):
+        errors = None
+        course = Course.objects.get(id=pk)
+        user = request.user
+        form = ApplicationForm(request.POST)
+        if form.is_valid():
+            application = Application.objects.create(
+                course = course,
+                user = user,
+                time = form.cleaned_data['time'],
+                age = form.cleaned_data['age'],
+                country = form.cleaned_data['country']
+            )
+            messages.success(request, 'application complete')
+        else:
+            form.errors
+            errors = form.errors
+            messages.error(request, 'application failed')
+        context = {
+            'form': form
+        }
+        return redirect('application', pk=pk)
