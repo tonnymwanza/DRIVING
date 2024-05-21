@@ -38,5 +38,9 @@ class Application(models.Model):
     time = models.CharField(max_length=50)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     age = models.IntegerField()
-    country = models.CharField(max_length=50)
+    county = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, null=True)
+    id_no = models.IntegerField(null=True)
+    phone_number = models.IntegerField(null=True)
+    email = models.EmailField(null=True)
 
