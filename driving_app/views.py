@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.contrib import auth
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from . models import Contact
 from . forms import AppointmentForm
@@ -91,7 +92,7 @@ def login(request):
         if user is not None:
             auth.login(request, user)
             if 'next' in request.POST:
-                return redirect(request.POST[next])
+                return redirect(request.POST['next'])
             else:
                 return redirect('index')
         else:
@@ -114,8 +115,8 @@ def appointment(request):
         messages.error(request, 'problem encountered while sending the details')
     return redirect('index')
 
-class ApplicationView(View):
-
+class ApplicationView(LoginRequiredMixin, View):
+    login_url = 'login'
     def get(self, request, pk):
         courses = Course.objects.get(id=pk)
         form = ApplicationForm(request.GET)
@@ -135,12 +136,20 @@ class ApplicationView(View):
                 user = user,
                 time = form.cleaned_data['time'],
                 age = form.cleaned_data['age'],
-                country = form.cleaned_data['country']
+                county = form.cleaned_data['county'],
+                name = form.cleaned_data['name'],
+                id_no = form.cleaned_data['id_no'],
+                phone_number = form.cleaned_data['phone_number'],
+                email = form.cleaned_data['email']
             )
             messages.success(request, 'application complete')
         else:
-            messages.error(request, 'application failed')
+            # form.errors:
+            errors = form.errors
+        # else:
+            # messages.error(request, 'application failed')
         context = {
             'form': form,
+            'errors': errors
         }
         return redirect('application', pk=pk)

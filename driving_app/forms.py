@@ -35,13 +35,23 @@ class ApplicationForm(forms.Form):
         ('evening', 'Evening'),
         ('morning', 'Morning')
     )
-    country_choice = (
-        ('kenya', 'Kenya'),
-        ('uganda', 'Uganda'),
-        ('burundi', 'Burundi'),
-        ('tanzania', 'Tanzania')
+    county_choice = (
+        ('nairobi', 'Nairobi'),
+        ('bungoma', 'Bungoma'),
+        ('machakos', 'Machakos'),
+        ('kisumu', 'Kisumu')
     )
     time = forms.CharField(widget=forms.Select(attrs={'placeholder':'select morning or evening'}, choices=time_choice))
-    age = forms.IntegerField(widget=forms.NumberInput(attrs={'placeholder': 'enter your age'}), validators=[age_validator])
-    country = forms.CharField(widget=forms.RadioSelect(choices=country_choice))
-    name = forms.CharField(max_length=50)
+    age = forms.IntegerField(widget=forms.NumberInput(attrs={'placeholder': 'enter your age'}))
+    county = forms.CharField(widget=forms.RadioSelect(choices=county_choice))
+    name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'enter your name'}))
+    id_no = forms.IntegerField(widget=forms.NumberInput(attrs={'placeholder': 'your id number'}))
+    phone_number = forms.IntegerField(widget=forms.NumberInput(attrs={'placeholder': 'enter your phone number'}))
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'enter your email'}))
+
+
+    def clean_age(self):
+        age = self.cleaned_data.get('age')
+        if age < 18:
+            raise forms.ValidationError('your age must be above 18')
+        return age

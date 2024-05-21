@@ -18,23 +18,43 @@
         <link href="{% static 'css/style2.css' %}" rel="stylesheet">
     </head>
     <body style="width: 20; height: 30px;">
+        <div style="text-align: center; margin-top: 30px;text-decoration: underline;">
+            <h3>Fill the application form</h3>
+        </div>
         <div style="text-align: center; justify-content: center; align-items: center;">
+            {% if errors %}
+            {{errors}}
+            {% endif %}
             <form method="POST" action="">
                 {% csrf_token %}
                 <div>
+                    <label style="margin-right: 50px;">Time of driving:</label>
                     {{form.time}}
                 </div>
                 <div>
                     {{form.age}}
                 </div>
                 <div>
-                    {{form.country}}
+                    <label>Choose your county</label>
+                    {{form.county}}
+                </div>
+                <div>
+                    {{form.name}}
+                </div>
+                <div>
+                    {{form.id_no}}
+                </div>
+                <div>
+                    {{form.phone_number}}
+                </div>
+                <div>
+                    {{form.email}}
                 </div>
                 {% for message in messages %}
                 <span style="color: green;">{{message}}</span>
                 {% endfor %}
                 <div>
-                    <button type="submit">Apply</button>
+                    <button style="margin-bottom: 20px; border-radius: 50px;" type="submit">Apply</button>
                 </div>
             </form>
         </div>
