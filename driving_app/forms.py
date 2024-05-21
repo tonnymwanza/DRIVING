@@ -44,3 +44,4 @@ class ApplicationForm(forms.Form):
     time = forms.CharField(widget=forms.Select(attrs={'placeholder':'select morning or evening'}, choices=time_choice))
     age = forms.IntegerField(widget=forms.NumberInput(attrs={'placeholder': 'enter your age'}), validators=[age_validator])
     country = forms.CharField(widget=forms.RadioSelect(choices=country_choice))
+    name = forms.CharField(max_length=50)
