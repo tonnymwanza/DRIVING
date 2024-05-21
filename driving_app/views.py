@@ -139,10 +139,8 @@ class ApplicationView(View):
             )
             messages.success(request, 'application complete')
         else:
-            form.errors
-            errors = form.errors
             messages.error(request, 'application failed')
         context = {
-            'form': form
+            'form': form,
         }
         return redirect('application', pk=pk)
