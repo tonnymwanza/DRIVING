@@ -18,9 +18,11 @@ from . forms import ApplicationForm
 class HomeView(View):
 
     def get(self, request):
+        course_obj = Course.objects.all()
         form = AppointmentForm(request.GET)
         context = {
-            'form': form
+            'form': form,
+            'course_obj': course_obj
         }
         return render(request, 'index.html', context)
 
