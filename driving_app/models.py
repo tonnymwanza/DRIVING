@@ -43,4 +43,3 @@ class Application(models.Model):
     id_no = models.IntegerField(null=True)
     phone_number = models.IntegerField(null=True)
     email = models.EmailField(null=True)
-
